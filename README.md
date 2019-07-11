@@ -14,5 +14,6 @@ This project showcases vanilla JavaScript skills of junior full-stack dev Sarah 
 
 Junior Full-Stack Dev Sarah Tam
 
-Find her on github at sarahtam718
+Find her on github at sarahtam718,
+personal site sarahtam.herokuapp.com,
 or IG at sarahtam718.
