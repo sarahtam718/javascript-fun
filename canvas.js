@@ -1,32 +1,41 @@
 const canvas = document.querySelector('#canvas');
 const ctx = canvas.getContext('2d');
 
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
 ctx.lineWidth = 20;
-ctx.strokeStyle = '#9fd1b8';
-ctx.globalAlpha = 0;
-//   ctx.lineCap = 'round';
-//   ctx.lineJoin = 'round';
+ctx.lineCap = 'round';
+ctx.globalCompositeOperation = 'overlay';
 
 let drawingNow = false;
-let x = 0;
-let y = 0;
+let prevX = 20;
+let prevY = 20;
+let lightness = 10;
+let up = true;
 
 drawLine = e => {
-  console.log(getMousePos());
   if (!drawingNow) return;
-  //   console.log(e.clientX);
   ctx.beginPath();
-  ctx.moveTo(x, y);
+  ctx.strokeStyle = `hsl(200, ${lightness}%, 50%)`;
+  ctx.moveTo(prevX, prevY);
   ctx.lineTo(e.offsetX, e.offsetY);
   ctx.stroke();
-  [x, y] = [e.offsetX, e.offsetY];
-  ctx.globalAlpha++;
+  [prevX, prevY] = [e.offsetX, e.offsetY];
+  if (lightness == 100 || lightness <= 9) {
+    up = !up;
+  }
+  if (up) {
+    lightness++;
+  } else {
+    lightness--;
+  }
 };
 
 canvas.addEventListener('mousemove', drawLine);
 canvas.addEventListener('mousedown', e => {
   drawingNow = true;
-  [x, y] = [e.offsetX, e.offsetY];
+  [prevX, prevY] = [e.offsetX, e.offsetY];
 });
 canvas.addEventListener('mouseup', () => (drawingNow = false));
 canvas.addEventListener('mouseout', () => (drawingNow = false));
